@@ -1,0 +1,106 @@
+{
+  "events": [
+    {
+      "text": "ユーザー: こんにちは、トーカー。今の気分は?",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782315120.3920968
+    },
+    {
+      "text": "ユーザー: やあトーカー、今日の天気は?",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782315363.8091872
+    },
+    {
+      "text": "ユーザー: あー、全然当たらん。どういうことや。",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782315510.719118
+    },
+    {
+      "text": "ユーザー: 言うことがなくなってきた",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782315606.9635072
+    },
+    {
+      "text": "ユーザー: どういうことなんや、まじで",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782315650.321358
+    },
+    {
+      "text": "ユーザー: こんにちは",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782317396.333895
+    },
+    {
+      "text": "AI: こんにちは。",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782317401.5873122
+    },
+    {
+      "text": "ユーザー: こんにちは",
+      "emotion": {
+        "like": 50,
+        "fun": 50,
+        "anger": 50,
+        "sad": 50,
+        "trust": 50
+      },
+      "time": 1782325626.0345423
+    }
+  ],
+  "voice_refs": [
+    "voice_data\\voice_0.wav",
+    "voice_data\\voice_1.wav",
+    "voice_data\\voice_2.wav",
+    "voice_data\\voice_3.wav",
+    "voice_data\\voice_4.wav"
+  ],
+  "toka_emotion": {
+    "like": 50,
+    "fun": 50,
+    "anger": 50,
+    "sad": 50,
+    "trust": 50
+  }
+}

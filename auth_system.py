@@ -1,5 +1,8 @@
+
 import speech_recognition as sr
 import os
+import sounddevice as sd
+import soundfile as sf
 
 from speechbrain.inference.speaker import SpeakerRecognition
 from config import THRESHOLD
@@ -11,34 +14,18 @@ class RegisterVoice:
         self.recognizer = sr.Recognizer()
 
 #　録音部分
-    def record_voice(self, filename):
-        try:
-
-            with sr.Microphone() as source:
-                print("マイク調整中...")
-                self.recognizer.adjust_for_ambient_noise(
-                    source,
-                    duration=1
-                )
-
-                print("録音開始")
-
-                audio = self.recognizer.listen(
-                    source,
-                    timeout=None,
-                    phrase_time_limit=8.0
-                )
-
-            with open(filename, "wb") as f:
-                f.write(audio.get_wav_data())
-
-            print(f"{filename} に保存")
-
-            return filename
-
-        except Exception as e:
-            print(f"録音エラー: {e}")
-            return None
+    def record_voice(self, output_path, duration=5, samplerate=16000): 
+        print("録音開始...")
+    
+        # channels=1 でモノラル録音。dtype='float32' が音声処理ライブラリと相性が良い
+        myrecording = sd.rec(int(duration * samplerate), samplerate=samplerate, channels=1, dtype='float32')
+    
+        # 録音終了までメインスレッドをブロックして待つ
+        sd.wait()
+        print("録音終了。")
+    
+        # 必要に応じてWAVファイルとして保存
+        sf.write(output_path, myrecording, samplerate)
 
 #　回数指定と返却
     def register(self):
@@ -77,6 +64,9 @@ class VoiceAuth:
 
     def voice_check(self, path):
         refs = self.memory_manager.get_voice_refs()
+
+        print(path)
+        print(os.path.exists(path))
 
         if not refs:
             print("登録音声がありません")

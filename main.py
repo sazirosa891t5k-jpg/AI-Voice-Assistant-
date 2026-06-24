@@ -1,3 +1,4 @@
+
 import sys
 import re
 import time
@@ -12,12 +13,13 @@ from dotenv import load_dotenv
 
 from auth_system import RegisterVoice,VoiceAuth
 from memory_manager import MemoryManager
-from audio_handlers import ListenUser , AIVoice
+from audio_handlers import ListenUser , AIVoice,auto_select_devices
 from logic_utils import Emotion, AppUtils
-from config import TEMP_USER_IMPUT, EMOTION
+from config import DEFAULT_EMOTION,TEMP_USER_INPUT
 
 # --- 文字化け対策 ---
 sys.stdout.reconfigure(encoding='utf-8')
+
 sys.stderr.reconfigure(encoding='utf-8')
 
 # --- API設定 ---
@@ -40,13 +42,6 @@ def select_model():
 
 MODEL_NAME = select_model()
 
-config = types.GenerateContentConfig(
-    system_instruction=f'あなたはトーカ。基本は冷静。現在の感情:好感度:{EMOTION["like"]}怒り:{EMOTION["anger"]}楽しさ:{EMOTION["fun"]}信頼:{EMOTION["trust"]}感情に応じて自然に会話してください。EMOTIONの各値は50が基準であり、それを下回ればマイナスの感情、超えるとプラスの感情。また最低0、最高を100とし、その値に適した形でロールプレイをして',
-    temperature=0.8
-)
-
-chat = client.chats.create(model=MODEL_NAME, config=config)
-
 # =========================
 # ▼ メイン
 # =========================
@@ -57,16 +52,26 @@ if "emotion" in memory_manager.memory:
     toka_emotion = memory_manager.memory["emotion"]
 else:
     # なければ、初期値（オール50）をセットして保存する（初回起動時のみここを通る）
-    toka_emotion = EMOTION
+    toka_emotion = DEFAULT_EMOTION
     memory_manager.memory["toka_emotion"] = toka_emotion
     memory_manager.save_memory()
+
+config = types.GenerateContentConfig(
+    system_instruction=f'あなたはトーカ。基本は冷静。現在の感情:好感度:{toka_emotion["like"]}怒り:{toka_emotion["anger"]}楽しさ:{toka_emotion["fun"]}信頼:{toka_emotion["trust"]}感情に応じて自然に会話してください.audio_timestamp=EMOTIONの各値は50が基準であり、それを下回ればマイナスの感情、超えるとプラスの感情。また最低0、最高を100とし、その値に適した形でロールプレイをして',
+    temperature=0.8
+)    
+
+chat = client.chats.create(model=MODEL_NAME, config=config)
 
 Vtest = False
 
 voice_auth = VoiceAuth(memory_manager)
 voice_register = RegisterVoice()
+
+audio_check = auto_select_devices()
 ai_voice = AIVoice()
 listen_user = ListenUser()
+
 
 refs = memory_manager.get_voice_refs()
 
@@ -107,7 +112,7 @@ while True:
         continue
     print("① listen成功")
    
-    Vtest = voice_auth.voice_check(TEMP_USER_IMPUT)
+    Vtest = voice_auth.voice_check(TEMP_USER_INPUT)
 
     print("認証結果 =", Vtest)
 

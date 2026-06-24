@@ -1,4 +1,5 @@
-﻿chromadb==1.5.9
+
+chromadb==1.5.9
 google-genai==2.6.0
 faster-whisper==1.2.1
 python-dotenv==1.2.2
@@ -9,3 +10,8 @@ sentence-transformers==2.7.0
 torch==2.2.2
 torchaudio==2.2.2
 PyAudio==0.2.14
+numpy==1.26.4
+sounddevice=0.5.5
+soundfile==0.14.0
+scipy==1.12.0
+
