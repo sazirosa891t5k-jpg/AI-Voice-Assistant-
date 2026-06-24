@@ -81,10 +81,10 @@ Whatの防御（audio_handlers.py）: faster-whisper 特有の、無音やノイ
       cd AI-Voice-Assistants-
       pip install -r requirements.txt
    
-     .env.example をコピーして .env を作成し、必要なAPIキー（Gemini API)を設定してください。
+     #.env.example をコピーして .env を作成し、必要なAPIキー（Gemini API)を設定してください。
       cp .env.example .env
-     .env ファイルをエディタで開き、APIキーを入力
+     #.env ファイルをエディタで開き、APIキーを入力
 
 6.2　実行
-   VOICEVOXを起動した状態で、以下のコマンドを実行してください。
+   #VOICEVOXを起動した状態で、以下のコマンドを実行してください。
    python main.py
